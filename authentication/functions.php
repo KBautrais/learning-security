@@ -16,7 +16,7 @@ function connectDb()
 function logUser($email, $password)
 {
     $connexion = connectDb();
-    $sql = 'SELECT * FROM users WHERE email = "' . $email . '" AND password = "' .$password . '"';
+    $sql = 'SELECT * FROM users WHERE email = "' . $email . '"';
     $stmt = $connexion->prepare($sql);
     $stmt->execute();
 
@@ -33,8 +33,9 @@ function getUser($id) {
 }
 
 function saveUser($email, $username, $password) {
+    $hashpassword = password_hash($password, PASSWORD_BCRYPT);
     $connexion = connectDb();
-    $sql = 'INSERT INTO users(username,email,password) VALUES("'.$email.'","'.$username.'","'.$password.'")';
+    $sql = 'INSERT INTO users(username,email,password) VALUES("'.$email.'","'.$username.'","'.$hashpassword.'")';
     $stmt = $connexion->prepare($sql);
 
     return $stmt->execute();
