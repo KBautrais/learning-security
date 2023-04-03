@@ -32,6 +32,16 @@ function getUser($id) {
     return $stmt->fetchAll(PDO::FETCH_OBJ);
 }
 
+function getUserByEmail($email) {
+    $connection = connectDb();
+    $sql = 'SELECT * FROM users WHERE email = ?';
+    $values = [$email];
+    $stmt= $connection->prepare($sql);
+    $stmt->execute($values);
+
+    return $stmt->fetchAll(PDO::FETCH_OBJ);
+}
+
 function saveUser($email, $username, $password) {
     $hashpassword = password_hash($password, PASSWORD_BCRYPT);
     $connexion = connectDb();

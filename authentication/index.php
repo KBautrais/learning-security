@@ -1,5 +1,6 @@
 <?php
 require_once('functions.php');
+require('config.php');
 session_start();
 $user = isset($_SESSION['user']) ? $_SESSION['user'] : null;
 if (isset($_GET['email']) && isset($_GET['password'])) {
@@ -47,6 +48,9 @@ if (isset($_GET['email']) && isset($_GET['password'])) {
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <a href="register.php">Je m'inscris</a>
+    <br>
+    <a href="https://accounts.google.com/o/oauth2/v2/auth?scope=email&access_type=online&response_type=code
+    &redirect_uri=<?= urlencode('http://localhost:8081/connect.php') ?>&client_id=<?= GOOGLE_ID?>">Auth Google</a>
     <?php else: ?>
         <h1>Bienvenue <?= $user->email ?></h1>
     <a href="informations.php?id=<?= $user->id ?>">Mes informations</a><br/>
