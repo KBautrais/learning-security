@@ -9,7 +9,7 @@ if(isset($_GET['id'])) {
 }
 ?>
 
-<?php if($user): ?>
+<?php if($user && $user->id === $_SESSION["user"]->id): ?>
 <h1>Information de l'utilisateur <?= $user->email ?></h1>
 <table>
     <tr>
